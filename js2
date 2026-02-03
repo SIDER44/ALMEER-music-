@@ -1,0 +1,17 @@
+// Signup
+async function signup(email, password, isAdmin){
+  const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+  await db.collection("users").doc(userCredential.user.uid).set({
+    name: email.split("@")[0],
+    admin: isAdmin
+  });
+  alert("Signup successful!");
+}
+
+// Login
+async function loginFirebase(email, password){
+  const userCredential = await auth.signInWithEmailAndPassword(email, password);
+  const userDoc = await db.collection("users").doc(userCredential.user.uid).get();
+  const userData = userDoc.data();
+  console.log(userData);
+}

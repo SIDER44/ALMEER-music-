@@ -1,0 +1,5 @@
+async function fetchSongs(){
+  const snapshot = await db.collection("songs").orderBy("createdAt","desc").get();
+  const songs = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}));
+  console.log(songs);
+}

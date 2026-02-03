@@ -1,0 +1,12 @@
+async function uploadSongFirebase(file, title, artist){
+  const storageRef = storage.ref(`songs/${file.name}`);
+  await storageRef.put(file);
+  const url = await storageRef.getDownloadURL();
+  await db.collection("songs").add({
+    title,
+    artist,
+    url,
+    likes: 0,
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  });
+}

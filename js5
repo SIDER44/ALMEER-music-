@@ -1,0 +1,7 @@
+async function uploadWallpaper(file){
+  const storageRef = storage.ref(`wallpapers/${file.name}`);
+  await storageRef.put(file);
+  const url = await storageRef.getDownloadURL();
+  document.body.style.background = `url(${url}) no-repeat center center fixed`;
+  document.body.style.backgroundSize = "cover";
+}
